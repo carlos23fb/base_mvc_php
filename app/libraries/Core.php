@@ -9,6 +9,7 @@
 
 
         // la funcion __construct se ejecuta cuando se instancia la clase Core en require.php
+
         public function __construct(){
             $url = $this->getUrl();
 
@@ -26,7 +27,7 @@
             $this->currentController = new $this->currentController;
 
 
-
+            // Verificando si hay una segunda parte en la url
             if (isset($url[1])){
                 if (method_exists($this->currentController, $url[1])){
                     $this->currentMethod = $url[1];
@@ -35,11 +36,10 @@
             }
 
             // Obtener parametros
-
             $this->params = $url ? array_values($url) : [];
 
+            // Hacer la llamada al metodo con un arreglo de parametros
             call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
-
 
         }
 
