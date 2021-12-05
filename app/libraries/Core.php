@@ -15,12 +15,33 @@
             // ucwords convierte Convierte en mayuscula la primer letra de un texto
             // Esta condicional verfica que exista un controlador para la url
             if(file_exists('../app/controllers/' . ucwords($url[0] . '.php'))){
+
+                // Declarar el nuevo controlador
                 $this->currentController = ucwords($url[0]);
+                unset($url[0]);
             }
+
+            // Requiriendo el controlador en caso de que exsita
+            require_once '../app/controllers/' . $this->currentController . '.php';
+            $this->currentController = new $this->currentController;
+
+
+
+            if (isset($url[1])){
+                if (method_exists($this->currentController, $url[1])){
+                    $this->currentMethod = $url[1];
+                    unset($url[1]);
+                }
+            }
+
+            // Obtener parametros
+
+            $this->params = $url ? array_values($url) : [];
+
+            call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
 
 
         }
-
 
         // Funcion que me ayuda a obtener la url
         public function getUrl(){
