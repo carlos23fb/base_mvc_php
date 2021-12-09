@@ -5,7 +5,7 @@
         public function model($model){
 
             // Requiriendo el archivo del modelo
-            require_once '../app/models' . $model . 'php';
+            require_once '../app/models/' . $model . '.php';
 
             // Instanciando el modelo
             return new $model();

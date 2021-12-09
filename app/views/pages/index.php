@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-</body>
 <h1><?php echo $data['title'] ?></h1>
+<h2><?php echo $data['name'] ?></h2>
 </body>
 </html>
